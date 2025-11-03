@@ -150,6 +150,10 @@ int erofs_read_inode_from_disk(struct erofs_inode *vi)
 	case S_IFSOCK:
 		vi->u.i_rdev = 0;
 		break;
+	case 0:
+		erofs_err("Unknown i_mode (%o) @ nid %llu", vi->i_mode,
+			  vi->nid | 0ULL);
+		break;
 	default:
 		erofs_err("bogus i_mode (%o) @ nid %llu", vi->i_mode,
 			  vi->nid | 0ULL);
